@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace test
 {
-    internal class Person
+    public class Person:IDateAndCopy
     {
-        string name;
+        protected string name;
         public string Name
         {
             get
@@ -24,7 +24,7 @@ namespace test
                 }
             }
         }
-        string fam;
+        protected string fam;
         public string Fam
         {
             get
@@ -41,37 +41,23 @@ namespace test
             }
         }
 
-        DateTime birth;
-        public DateTime Birth
-        {
-            get
-            {
-                return birth;
-            }
-            set
-            {
-                birth = value;
-                if (birth.Year < 1900)
-                {
-                    throw new Exception("Недопустимый год");
-                }
-            }
-        }
-        public Person(string name, string fam, DateTime birth)
+        public DateTime Date { get; set; }
+        
+        public Person(string name, string fam, DateTime Date)
         {
             this.name = name;
             this.fam = fam;
-            this.birth = birth;
+            this.Date = Date;
         }
         public Person()
         {
             name = "Andrey";
             fam = "Petrov";
-            birth = new DateTime(1995, 12, 17);
+            Date = new DateTime(1995, 12, 17);
         }
         public override string ToString()
         {
-            return $"Имя:{name},фамилия:{fam},дата рождения:{birth}";
+            return $"Имя:{name},фамилия:{fam},дата рождения:{Date}";
         }
         public virtual string ToShortString()
         {
@@ -89,14 +75,14 @@ namespace test
         {
             if (obj == null || (obj is not Person)) return false;
             Person p = (Person)obj;
-            return name == p.name && fam == p.fam && birth == p.birth;
+            return name == p.name && fam == p.fam && Date == p.Date&&fam==p.fam;
         }
         public override int GetHashCode()
         {
             int hash = 23;
             hash = hash * 31 + name.GetHashCode();
             hash = hash * 31 + fam.GetHashCode();
-            hash = hash * 31 + birth.GetHashCode();
+            hash = hash * 31 + Date.GetHashCode();
             return hash;
         }
         public object DeepCopy()
