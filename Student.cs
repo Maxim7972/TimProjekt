@@ -12,7 +12,13 @@ namespace test
         Specialist,
         SecondEducation
     }
-    public class Student : Person, IDateAndCopy
+    public enum Education
+    {
+        Bachelor,
+        Specialist,
+        SecondEducation
+    }
+    public class Student : Person, IDateAndCopy,IEnumerable
     {
         private Education education;
         private int groupNumber;
@@ -68,7 +74,7 @@ namespace test
 
         public override string ToString()
         {
-            string result = $"Студент: {Name} {Fam}, Дата: {Date}, Образование: {education}, Группа: {groupNumber}\nЗачёты:\n";
+            string result = $"Человек: {Name} {Fam}, Дата: {Date}, Образование: {education}, Группа: {groupNumber}\nЭкзамены:\n";
             foreach (Exam exam in exams)
             {
                 result += $"{exam.Name} - {exam.Note} ({exam.Date})\n";
@@ -83,7 +89,7 @@ namespace test
 
         public override string ToShortString()
         {
-            return $"Студент: {Name} {Fam}, Дата: {Date}, Образование: {education}, Группа: {groupNumber}, Средний балл: {AverageGrade}";
+            return $"Человек: {Name} {Fam}, Дата: {Date}, Образование: {education}, Группа: {groupNumber}, Средний балл: {AverageGrade}";
         }
 
         public  object DeepCopy()
@@ -107,17 +113,27 @@ namespace test
             }
         }
 
-        public List<Exam> Perebor(int grade)
+        public IEnumerator GetEnumerator()
         {
-            List<Exam> filteredExams = new List<Exam>();
+            foreach (var item in tests)
+            {
+                yield return item;
+            }
+            foreach (var item in exams)
+            {
+                yield return item;
+            }
+        }
+
+        public IEnumerable ExamsWithGradeAbove(int grade)
+        {
             foreach (Exam exam in exams)
             {
                 if (exam.Note > grade)
                 {
-                    filteredExams.Add(exam);
+                    yield return exam;
                 }
             }
-            return filteredExams;
         }
     }
 }
