@@ -1,7 +1,7 @@
 public class Test
 {
-    public string Testop { get; set; } // Описание теста
-    public bool Teststat { get; set; }      // Статус  теста
+    public string Testop { get; set; } //Название предмета
+    public bool Teststat { get; set; }      // Сдан зачет 
 
 
     public Test(string testop, bool teststat)
