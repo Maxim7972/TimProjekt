@@ -87,7 +87,7 @@ namespace test
         }
         public object DeepCopy()
         {
-            return new Person();
+            return new Person(this.name,this.age,this.date);
         }
     }
 }
