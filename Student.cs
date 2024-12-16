@@ -12,12 +12,6 @@ namespace test
         Specialist,
         SecondEducation
     }
-    public enum Education
-    {
-        Bachelor,
-        Specialist,
-        SecondEducation
-    }
     public class Student : Person, IDateAndCopy,IEnumerable
     {
         private Education education;
